@@ -1,0 +1,33 @@
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'app-message',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div *ngIf="hasError()" class="p-message p-message-error">
+      {{ text }}
+    </div>
+  `,
+  styles: `
+  .p-message-error {
+    padding: 3px;
+    margin: 0;
+    margin-top: 4px;
+    color: #c0392b;
+    font-size: 0.85rem;
+  }
+  `
+})
+export class MessageComponent {
+  @Input() error!: string;
+  @Input() control!: FormControl;
+  @Input() text!: string;
+
+  hasError(): boolean {
+    return this.control.hasError(this.error) && this.control.dirty;
+  }
+
+}

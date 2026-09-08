@@ -1,0 +1,51 @@
+<div class="container">
+
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="register(f)">
+    <div class="p-grid p-fluid register">
+
+      <div class="p-col-12 title">
+        <h1>Criar conta</h1>
+      </div>
+
+      <div class="p-col-12">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" placeholder="Nome completo"
+          [(ngModel)]="name" required minlength="3" maxlength="200" #nameField="ngModel">
+        <app-message [control]="nameField" error="required" text="Informe seu nome"></app-message>
+        <app-message [control]="nameField" error="minlength" text="O nome deve ter no mínimo 3 caracteres"></app-message>
+      </div>
+
+      <div class="p-col-12">
+        <label>E-mail</label>
+        <input pInputText type="email" name="email" placeholder="E-mail"
+          [(ngModel)]="email" required email #emailField="ngModel">
+        <app-message [control]="emailField" error="required" text="Informe seu e-mail"></app-message>
+        <app-message [control]="emailField" error="email" text="Informe um e-mail válido"></app-message>
+      </div>
+
+      <div class="p-col-12">
+        <label>Senha</label>
+        <input pInputText type="password" name="password" placeholder="Senha"
+          [(ngModel)]="password" required minlength="8" maxlength="50" #passwordField="ngModel">
+        <app-message [control]="passwordField" error="required" text="Informe uma senha"></app-message>
+        <app-message [control]="passwordField" error="minlength" text="A senha deve ter no mínimo 8 caracteres"></app-message>
+      </div>
+
+      <div class="p-col-12">
+        <label>Confirmar senha</label>
+        <input pInputText type="password" name="confirmPassword" placeholder="Confirme a senha"
+          [(ngModel)]="confirmPassword" required #confirmPasswordField="ngModel">
+      </div>
+
+      <div class="p-col-12">
+        <p><button pButton type="submit" label="Cadastrar" [disabled]="f.invalid"></button></p>
+      </div>
+
+      <div class="p-col-12 back-link">
+        <a routerLink="/login">Já tenho conta — Entrar</a>
+      </div>
+
+    </div>
+  </form>
+
+</div>

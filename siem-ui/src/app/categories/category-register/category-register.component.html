@@ -1,0 +1,40 @@
+<div class="container">
+
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="save()">
+
+    <div class="p-grid">
+      <div class="p-col-12 title">
+        <h1>{{ editing ? 'Edição de' : 'Nova' }} Categoria</h1>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome da categoria</label>
+        <input pInputText type="text" [(ngModel)]="category.categoryName"
+          name="categoryName" #categoryName="ngModel" required minlength="10" maxlength="150">
+        <app-message [control]="categoryName" error="required" text="Informe o nome da categoria"></app-message>
+        <app-message [control]="categoryName" error="minlength" text="O nome deve ter no mínimo 10 caracteres"></app-message>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Descrição</label>
+        <textarea rows="4" [(ngModel)]="category.description"
+          name="description" #description="ngModel" required minlength="20" maxlength="200"></textarea>
+        <app-message [control]="description" error="required" text="Informe a descrição"></app-message>
+        <app-message [control]="description" error="minlength" text="A descrição deve ter no mínimo 20 caracteres"></app-message>
+      </div>
+
+      <div class="p-col-12">
+        <p>
+          <button pButton class="my-2" type="submit" label="Salvar" [disabled]="f.invalid"></button>
+          <button pButton class="my-2 p-button-info" type="button" label="Nova"
+            (click)="new(f)"></button>
+        </p>
+      </div>
+      <div class="p-col-12">
+        <a class="my-2" routerLink="/categories">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+
+</div>

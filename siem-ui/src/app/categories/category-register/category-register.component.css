@@ -1,0 +1,25 @@
+form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+}
+
+button, input, textarea {
+  width: 100%;
+}
+
+textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+a {
+  display: inline-block;
+  margin-top: 10px;
+}

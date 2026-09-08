@@ -1,0 +1,36 @@
+<div class="container">
+
+  <form autocomplete="off" #f="ngForm">
+    <div class="p-grid p-fluid login">
+
+      <div class="p-col-12 title">
+        <h1>SIEM - Login</h1>
+      </div>
+
+      <div class="p-col-12" *ngIf="msg">
+        <p class="error-msg">{{ msg }}</p>
+      </div>
+
+      <div class="p-col-12">
+        <p><input pInputText type="email" name="email" placeholder="E-mail"
+          ngModel required #email>
+        </p>
+      </div>
+
+      <div class="p-col-12">
+        <p><input pInputText type="password" name="password" placeholder="Senha"
+          ngModel required #password>
+        </p>
+      </div>
+
+      <div class="p-col-12">
+        <p><button pButton type="submit" label="Entrar" [disabled]="!f.valid"
+          (click)="login(email.value, password.value)"></button>
+        </p>
+        <p class="register-link"><a routerLink="/register">Criar uma conta</a></p>
+      </div>
+
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,12 @@
+.col-actions-header {
+  width: 120px;
+}
+
+.col-actions {
+  width: 120px;
+  text-align: center;
+}
+
+.col-actions .p-button {
+  margin: 1px;
+}

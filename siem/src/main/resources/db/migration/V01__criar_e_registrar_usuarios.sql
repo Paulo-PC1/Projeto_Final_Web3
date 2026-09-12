@@ -7,8 +7,8 @@ CREATE TABLE user (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO user (id, name, email, password, active) values
-	(1, "Paulo Cezar", "paulocezar@email.com", "$2a$12$G0AgmDOuNvs8gUqMoYRR8u.R5Dn9Z61A4Xf1o5gf7BQivTX.xS5ti", 1),
-	(2, "José Henrique", "henriquejose@email.com", "$2a$12$G0AgmDOuNvs8gUqMoYRR8u.R5Dn9Z61A4Xf1o5gf7BQivTX.xS5ti", 1),
-	(3, "Ana Maria", "mariaana@email.com", "$2a$12$G0AgmDOuNvs8gUqMoYRR8u.R5Dn9Z61A4Xf1o5gf7BQivTX.xS5ti", 1),
-	(4, "Maria Laura", "lauramaria@email.com", "$2a$12$G0AgmDOuNvs8gUqMoYRR8u.R5Dn9Z61A4Xf1o5gf7BQivTX.xS5ti", 1),
-	(5, "Claudio", "claudio@email.com", "$2a$12$G0AgmDOuNvs8gUqMoYRR8u.R5Dn9Z61A4Xf1o5gf7BQivTX.xS5ti", 1);
+	(1, "Paulo Cezar", "paulocezar@email.com", "$2a$12$L5lLH18kwjPvMfaLRW1Tne4rRLU2kUGMcfxY5TPahzahSynbryBfa", 1),
+	(2, "José Henrique", "henriquejose@email.com", "$2a$12$L5lLH18kwjPvMfaLRW1Tne4rRLU2kUGMcfxY5TPahzahSynbryBfa", 1),
+	(3, "Ana Maria", "mariaana@email.com", "$2a$12$L5lLH18kwjPvMfaLRW1Tne4rRLU2kUGMcfxY5TPahzahSynbryBfa", 1),
+	(4, "Maria Laura", "lauramaria@email.com", "$2a$12$L5lLH18kwjPvMfaLRW1Tne4rRLU2kUGMcfxY5TPahzahSynbryBfa", 1),
+	(5, "Claudio", "claudio@email.com", "$2a$12$L5lLH18kwjPvMfaLRW1Tne4rRLU2kUGMcfxY5TPahzahSynbryBfa", 1);

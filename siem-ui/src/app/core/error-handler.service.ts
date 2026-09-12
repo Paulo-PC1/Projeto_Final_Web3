@@ -22,10 +22,11 @@ export class ErrorHandlerService {
       if (errorResponse.status === 403) {
         msg = 'Você não tem permissão para executar esta ação';
       }
+      if (errorResponse.status === 404) {
+        msg = 'Nenhum registro encontrado para esta solicitação';
+      }
 
       try {
-        // A API SIEM retorna, para erros de validação (400), uma lista de
-        // objetos { userMessage, developerMessage } (ver SiemExceptionHandler)
         msg = errorResponse.error[0].userMessage;
       } catch (e) { }
 

@@ -50,10 +50,9 @@ public class UserController {
 	}
 
 	@PostMapping
-	@PreAuthorize("hasAuthority('ROLE_REGISTER_USER')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@Valid @RequestBody User user, HttpServletResponse response) {
-		return userRepository.save(user);
+		return userService.save(user);
 	}
 
 	@DeleteMapping("/{id}")

@@ -52,6 +52,7 @@ public class UserController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@Valid @RequestBody User user, HttpServletResponse response) {
+		System.out.println(">>> CHEGUEI NO CREATE USER <<<");
 		return userService.save(user);
 	}
 

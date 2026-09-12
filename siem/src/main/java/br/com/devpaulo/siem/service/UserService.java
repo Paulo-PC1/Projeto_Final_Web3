@@ -26,6 +26,7 @@ public class UserService {
 	
 	public User save(User user) {
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		user.setActive(true);
 		user.setPermissions(addCommonUserPermissions());
 		return userRepository.save(user);
 			

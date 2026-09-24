@@ -1,6 +1,6 @@
 .navbar {
   padding: 20px 0 10px;
-  background-color: var(--p-primary-color);
+  background-color: var(--p-primary-800);
 }
 
 .navbar-toggle {

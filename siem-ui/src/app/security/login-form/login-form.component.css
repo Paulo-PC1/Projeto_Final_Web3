@@ -19,3 +19,6 @@ button, input {
 .register-link {
   text-align: center;
 }
+.p-button{
+  background-color: var(--p-primary-800);
+}

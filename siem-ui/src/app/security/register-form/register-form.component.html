@@ -1,40 +1,48 @@
 <div class="container">
 
-  <form autocomplete="off" #f="ngForm" (ngSubmit)="register(f)">
+  <form autocomplete="on" #f="ngForm" (ngSubmit)="register()">
     <div class="p-grid p-fluid register">
 
       <div class="p-col-12 title">
         <h1>Criar conta</h1>
       </div>
 
-      <div class="p-col-12">
-        <label>Nome</label>
-        <input pInputText type="text" name="name" placeholder="Nome completo"
+      <div class="p-col-12 field">
+        <label class="field-label" for="register-name">Nome</label>
+        <input pInputText id="register-name" type="text" name="name" placeholder="Nome completo"
+          autocomplete="name"
           [(ngModel)]="name" required minlength="3" maxlength="200" #nameField="ngModel">
         <app-message [control]="nameField" error="required" text="Informe seu nome"></app-message>
         <app-message [control]="nameField" error="minlength" text="O nome deve ter no mínimo 3 caracteres"></app-message>
       </div>
 
-      <div class="p-col-12">
-        <label>E-mail</label>
-        <input pInputText type="email" name="email" placeholder="E-mail"
+      <div class="p-col-12 field">
+        <label class="field-label" for="register-email">E-mail</label>
+        <input pInputText id="register-email" type="email" name="email" autocomplete="email"
           [(ngModel)]="email" required email #emailField="ngModel">
         <app-message [control]="emailField" error="required" text="Informe seu e-mail"></app-message>
         <app-message [control]="emailField" error="email" text="Informe um e-mail válido"></app-message>
       </div>
 
-      <div class="p-col-12">
-        <label>Senha</label>
-        <input pInputText type="password" name="password" placeholder="Senha"
+      <div class="p-col-12 field">
+        <label class="field-label" for="register-password">Senha</label>
+        <input pInputText id="register-password" type="password" name="password"
+          autocomplete="new-password"
           [(ngModel)]="password" required minlength="8" maxlength="50" #passwordField="ngModel">
         <app-message [control]="passwordField" error="required" text="Informe uma senha"></app-message>
         <app-message [control]="passwordField" error="minlength" text="A senha deve ter no mínimo 8 caracteres"></app-message>
       </div>
 
-      <div class="p-col-12">
-        <label>Confirmar senha</label>
-        <input pInputText type="password" name="confirmPassword" placeholder="Confirme a senha"
-          [(ngModel)]="confirmPassword" required #confirmPasswordField="ngModel">
+      <div class="p-col-12 field">
+        <label class="field-label" for="register-confirm-password">Confirmar senha</label>
+        <!-- [appMatchValue]: erro "mismatch" enquanto a confirmação for diferente da senha.
+             Revalida sozinho se a senha for alterada depois. -->
+        <input pInputText id="register-confirm-password" type="password" name="confirmPassword"
+          autocomplete="new-password"
+          [(ngModel)]="confirmPassword" required [appMatchValue]="password"
+          #confirmPasswordField="ngModel">
+        <app-message [control]="confirmPasswordField" error="required" text="Confirme a senha"></app-message>
+        <app-message [control]="confirmPasswordField" error="mismatch" text="As senhas não coincidem"></app-message>
       </div>
 
       <div class="p-col-12">

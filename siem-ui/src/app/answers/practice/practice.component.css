@@ -1,0 +1,71 @@
+.summary {
+  font-weight: 600;
+}
+
+.filter {
+  max-width: 320px;
+}
+
+.exercise-card {
+  border: 1px solid #767676;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.exercise-card h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.category-tag {
+  margin-left: 8px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #e7f2fd;
+  color: #05345f;
+}
+
+.statement {
+  margin: 0 0 8px;
+}
+
+code {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f1f1f1;
+}
+
+.answer-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.answer-form .field {
+  margin-bottom: 0;
+  flex: 1 1 200px;
+}
+
+.p-button {
+  background-color: var(--p-primary-800);
+}
+
+.result p {
+  margin: 12px 0 0;
+  font-weight: 600;
+}
+
+/* Cores com contraste suficiente sobre fundo branco (>= 4.5:1) */
+.result-ok {
+  color: #146c2e;
+}
+
+.result-wrong {
+  color: #b02a1c;
+}

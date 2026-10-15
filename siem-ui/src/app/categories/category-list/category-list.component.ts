@@ -7,6 +7,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CategoryService, Category } from '../category.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { AuthService } from '../../security/auth.service';
+import { Permission } from '../../core/permissions';
 
 @Component({
   selector: 'app-category-list',
@@ -25,7 +27,11 @@ export class CategoryListComponent implements OnInit {
 
   categories: Category[] = [];
 
+  // Exposto ao template para condicionar botões: auth.hasPermission(perm.XXX)
+  readonly perm = Permission;
+
   constructor(
+    public auth: AuthService,
     private categoryService: CategoryService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
@@ -34,6 +40,12 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
+  }
+
+  // A coluna "Ações" só existe se o usuário puder fazer pelo menos uma delas
+  get showActions(): boolean {
+    return this.auth.hasPermission(this.perm.REGISTER_CATEGORY)
+      || this.auth.hasPermission(this.perm.REMOVE_CATEGORY);
   }
 
   list(): void {

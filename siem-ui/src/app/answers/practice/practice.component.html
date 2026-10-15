@@ -1,0 +1,67 @@
+<div class="page">
+
+  <h1>Praticar exercícios</h1>
+
+  <p *ngIf="loading">Carregando exercícios…</p>
+
+  <ng-container *ngIf="!loading">
+
+    <p *ngIf="exercises.length === 0">Nenhum exercício disponível no momento.</p>
+
+    <ng-container *ngIf="exercises.length > 0">
+
+      <p class="summary">
+        Você respondeu {{ answeredCount }} de {{ exercises.length }} exercícios
+        e acertou {{ correctCount }}.
+      </p>
+
+      <div class="field filter">
+        <label class="field-label" for="category-filter">Filtrar por categoria</label>
+        <select id="category-filter" class="native-input" name="categoryFilter"
+          [(ngModel)]="selectedCategory">
+          <option [ngValue]="null">Todas as categorias</option>
+          <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+
+      <article class="exercise-card" *ngFor="let exercise of visibleExercises">
+
+        <h2>Exercício {{ exercise.id }}
+          <span class="category-tag">{{ exercise.categoryName }}</span>
+        </h2>
+
+        <p class="statement">{{ exercise.statement }}</p>
+        <p *ngIf="exercise.operation"><code>{{ exercise.operation }}</code></p>
+
+        <form #f="ngForm" autocomplete="off" class="answer-form" (ngSubmit)="submit(exercise)">
+          <div class="field">
+            <label class="field-label" [for]="'answer-' + exercise.id">Sua resposta</label>
+            <input pInputText type="number" step="any" name="answer"
+              [id]="'answer-' + exercise.id"
+              [(ngModel)]="attempts[exercise.id].value" required>
+          </div>
+          <button pButton type="submit" label="Responder"
+            [disabled]="f.invalid || attempts[exercise.id].sending"></button>
+        </form>
+
+        <!-- Região "viva": o leitor de tela anuncia o resultado quando ele aparece.
+             O resultado usa ícone + texto, nunca só cor. -->
+        <div class="result" role="status" aria-live="polite">
+          <ng-container *ngIf="results[exercise.id] as r">
+            <p *ngIf="r.correct" class="result-ok">
+              <i class="pi pi-check-circle" aria-hidden="true"></i>
+              Correto! Sua resposta: {{ r.userAnswer }}.
+            </p>
+            <p *ngIf="!r.correct" class="result-wrong">
+              <i class="pi pi-times-circle" aria-hidden="true"></i>
+              Incorreto. Sua resposta: {{ r.userAnswer }}. A resposta correta é {{ r.correctAnswer }}.
+            </p>
+          </ng-container>
+        </div>
+
+      </article>
+
+    </ng-container>
+  </ng-container>
+
+</div>

@@ -3,6 +3,8 @@ package br.com.devpaulo.siem.domain.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,8 @@ public class User {
 	private String email;
 	@NotBlank
 	@Size(min = 8, max = 100)
+	// WRITE_ONLY: a senha pode ser recebida (cadastro), mas nunca devolvida nas respostas
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private Boolean active;
 	@ManyToMany(fetch = FetchType.EAGER) // fetch = buscar - eager = ancioso

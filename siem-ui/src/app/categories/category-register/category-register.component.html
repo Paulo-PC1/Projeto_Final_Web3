@@ -8,16 +8,16 @@
       </div>
 
       <div class="p-col-12 p-fluid">
-        <label>Nome da categoria</label>
-        <input pInputText type="text" [(ngModel)]="category.categoryName"
+        <label for="category-name">Nome da categoria</label>
+        <input pInputText id="category-name" type="text" [(ngModel)]="category.categoryName"
           name="categoryName" #categoryName="ngModel" required minlength="10" maxlength="150">
         <app-message [control]="categoryName" error="required" text="Informe o nome da categoria"></app-message>
         <app-message [control]="categoryName" error="minlength" text="O nome deve ter no mínimo 10 caracteres"></app-message>
       </div>
 
       <div class="p-col-12 p-fluid">
-        <label>Descrição</label>
-        <textarea rows="4" [(ngModel)]="category.description"
+        <label for="category-description">Descrição</label>
+        <textarea id="category-description" rows="4" [(ngModel)]="category.description"
           name="description" #description="ngModel" required minlength="20" maxlength="200"></textarea>
         <app-message [control]="description" error="required" text="Informe a descrição"></app-message>
         <app-message [control]="description" error="minlength" text="A descrição deve ter no mínimo 20 caracteres"></app-message>

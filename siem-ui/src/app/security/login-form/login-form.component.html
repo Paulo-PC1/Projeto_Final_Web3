@@ -1,32 +1,32 @@
 <div class="container">
 
-  <form autocomplete="off" #f="ngForm">
+  <form autocomplete="on" #f="ngForm" (ngSubmit)="login(email.value, password.value)">
     <div class="p-grid p-fluid login">
 
       <div class="p-col-12 title">
         <h1>SIEM - Login</h1>
       </div>
 
+      <!-- role="alert": o leitor de tela anuncia o erro assim que ele aparece.
+           O texto muda conforme a causa (credencial inválida x falha de conexão). -->
       <div class="p-col-12" *ngIf="msg">
-        <p class="error-msg">{{ msg }}</p>
+        <p class="error-msg" role="alert">{{ msg }}</p>
       </div>
 
-      <div class="p-col-12">
-        <p><input pInputText type="email" name="email" placeholder="E-mail"
+      <div class="p-col-12 field">
+        <label class="field-label" for="login-email">E-mail</label>
+        <input pInputText id="login-email" type="email" name="email" autocomplete="username"
           ngModel required #email>
-        </p>
+      </div>
+
+      <div class="p-col-12 field">
+        <label class="field-label" for="login-password">Senha</label>
+        <input pInputText id="login-password" type="password" name="password"
+          autocomplete="current-password" ngModel required #password>
       </div>
 
       <div class="p-col-12">
-        <p><input pInputText type="password" name="password" placeholder="Senha"
-          ngModel required #password>
-        </p>
-      </div>
-
-      <div class="p-col-12">
-        <p><button pButton type="submit" label="Entrar" [disabled]="!f.valid"
-          (click)="login(email.value, password.value)"></button>
-        </p>
+        <p><button pButton type="submit" label="Entrar" [disabled]="!f.valid || loading"></button></p>
         <p class="register-link"><a routerLink="/register">Criar uma conta</a></p>
       </div>
 

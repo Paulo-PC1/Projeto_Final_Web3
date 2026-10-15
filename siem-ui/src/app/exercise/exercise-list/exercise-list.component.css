@@ -1,0 +1,16 @@
+.col-actions-header {
+  width: 160px;
+}
+
+.col-actions {
+  width: 160px;
+  text-align: center;
+}
+
+.col-actions .p-button {
+  margin: 1px;
+}
+
+.p-button {
+  background-color: var(--p-primary-800);
+}

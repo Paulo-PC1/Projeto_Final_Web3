@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.devpaulo.siem.domain.dto.ExercisePracticeDTO;
 import br.com.devpaulo.siem.domain.model.Exercise;
 import br.com.devpaulo.siem.repository.ExerciseRepository;
 import br.com.devpaulo.siem.service.ExerciseService;
@@ -37,6 +38,13 @@ public class ExerciseController {
 	@PreAuthorize("hasAuthority('ROLE_SEARCH_EXERCISE')")
 	public List<Exercise> findAll(){
 		return exerciseRepository.findAll();
+	}
+	
+	// Exercícios ativos, sem o gabarito, para a tela de resolução do aluno
+	@GetMapping("/practice")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_EXERCISE')")
+	public List<ExercisePracticeDTO> findActiveForPractice() {
+		return exerciseRepository.findByActiveTrue().stream().map(ExercisePracticeDTO::from).toList();
 	}
 	
 	@GetMapping("/{id}")

@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.com.devpaulo.siem.service.exception.NonExistentOrInactiveException;
 
 @ControllerAdvice
 public class SiemExceptionHandler extends ResponseEntityExceptionHandler {
@@ -59,6 +62,29 @@ public class SiemExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,
 			WebRequest request) {
 		String userMessage = messageSource.getMessage("resource.not-found", null, LocaleContextHolder.getLocale());
+		String developerMessage = ex.toString();
+
+		List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));
+		return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+	}
+
+	// Ex.: excluir categoria que possui exercícios, ou exercício que já tem respostas (FK)
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex,
+			WebRequest request) {
+		String userMessage = messageSource.getMessage("resource.operation-not-allowed", null,
+				LocaleContextHolder.getLocale());
+		String developerMessage = Optional.ofNullable(ex.getMostSpecificCause()).orElse(ex).toString();
+
+		List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));
+		return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+	}
+
+	@ExceptionHandler({ NonExistentOrInactiveException.class })
+	protected ResponseEntity<Object> handleNonExistentOrInactive(NonExistentOrInactiveException ex,
+			WebRequest request) {
+		String userMessage = messageSource.getMessage("user.non-existent-or-inactive", null,
+				LocaleContextHolder.getLocale());
 		String developerMessage = ex.toString();
 
 		List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));

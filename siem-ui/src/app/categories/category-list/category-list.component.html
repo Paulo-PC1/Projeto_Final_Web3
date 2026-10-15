@@ -9,26 +9,39 @@
       <p-table [value]="categories" responsiveLayout="stack" [breakpoint]="'768px'">
         <ng-template pTemplate="header">
           <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th class="col-actions-header"></th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrição</th>
+            <th scope="col" class="col-actions-header" *ngIf="showActions">
+              <span class="visually-hidden">Ações</span>
+            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-category>
           <tr>
             <td>{{ category.categoryName }}</td>
             <td>{{ category.description }}</td>
-            <td class="col-actions">
-              <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+            <td class="col-actions" *ngIf="showActions">
+              <!-- Cada botão só aparece para quem tem a permissão correspondente.
+                   Os aria-label dão nome aos botões que só têm ícone. -->
+              <a *ngIf="auth.hasPermission(perm.REGISTER_CATEGORY)" pButton icon="pi pi-pencil"
+                pTooltip="Editar" tooltipPosition="top"
+                [attr.aria-label]="'Editar categoria ' + category.categoryName"
                 [routerLink]="['/categories', category.id]"></a>
-              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+              <button *ngIf="auth.hasPermission(perm.REMOVE_CATEGORY)" pButton type="button"
+                icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                [attr.aria-label]="'Excluir categoria ' + category.categoryName"
                 (click)="confirmRemoval(category)"></button>
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="3">Nenhuma categoria cadastrada.</td>
+          </tr>
+        </ng-template>
       </p-table>
     </div>
-    <div class="p-col-12">
+    <div class="p-col-12" *ngIf="auth.hasPermission(perm.REGISTER_CATEGORY)">
       <p><a pButton label="Nova Categoria" routerLink="/categories/new"></a></p>
     </div>
   </div>

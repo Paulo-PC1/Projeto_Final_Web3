@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { UserService } from '../user.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { MessageComponent } from '../../shared/message/message.component';
+import { MatchValueDirective } from '../../shared/match-value.directive';
 
 @Component({
   selector: 'app-register-form',
@@ -18,7 +19,8 @@ import { MessageComponent } from '../../shared/message/message.component';
     InputTextModule,
     ButtonModule,
     RouterModule,
-    MessageComponent
+    MessageComponent,
+    MatchValueDirective
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css'
@@ -37,9 +39,11 @@ export class RegisterFormComponent {
     private router: Router
   ) { }
 
-  register(registerForm: NgForm): void {
+  // A conferência de "confirmar senha" é feita no próprio campo (MatchValueDirective), e o
+  // botão fica desabilitado enquanto o formulário for inválido. Esta checagem é só uma
+  // segunda barreira, caso o envio aconteça por outro caminho (ex.: Enter).
+  register(): void {
     if (this.password !== this.confirmPassword) {
-      this.messageService.add({ severity: 'error', detail: 'As senhas não coincidem' });
       return;
     }
 

@@ -1,21 +1,34 @@
-<nav class="navbar" *ngIf="auth.isLoggedIn()">
+<nav class="navbar" aria-label="Principal" *ngIf="auth.isLoggedIn()">
 
   <div class="container">
     <div class="p-grid">
       <div class="p-col-12">
-        <a href="javascript:;" class="navbar-toggle" (click)="displayingMenu = !displayingMenu">
-          <i class="pi pi-bars"></i></a>
+        <!-- Era um <a href="javascript:;"> só com ícone (sem nome acessível e fora do padrão
+             de botão). Agora é um <button> com rótulo e estado aberto/fechado. -->
+        <button type="button" class="navbar-toggle" aria-label="Menu principal"
+          aria-controls="navbar-menu" [attr.aria-expanded]="displayingMenu"
+          (click)="displayingMenu = !displayingMenu">
+          <i class="pi pi-bars" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <ul class="navbar-menu" [hidden]="!displayingMenu">
+  <ul id="navbar-menu" class="navbar-menu" [hidden]="!displayingMenu">
     <li class="navbar-user">{{ auth.jwtPayload?.sub }}</li>
-    <li class="navbar-menuitem">
+
+    <!-- Cada item só aparece se o usuário tiver a permissão que a rota exige -->
+    <li class="navbar-menuitem" *ngIf="auth.hasPermission(perm.REGISTER_ANSWER)">
+      <a routerLink="/practice" (click)="displayingMenu = false">Praticar</a>
+    </li>
+    <li class="navbar-menuitem" *ngIf="canManageExercises">
+      <a routerLink="/exercises" (click)="displayingMenu = false">Exercícios</a>
+    </li>
+    <li class="navbar-menuitem" *ngIf="auth.hasPermission(perm.SEARCH_CATEGORY)">
       <a routerLink="/categories" (click)="displayingMenu = false">Categorias</a>
     </li>
     <li class="navbar-menuitem">
-      <a href="javascript:;" (click)="logout()">Sair</a>
+      <button type="button" class="navbar-link" (click)="logout()">Sair</button>
     </li>
   </ul>
 

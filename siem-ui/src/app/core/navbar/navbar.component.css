@@ -5,7 +5,11 @@
 
 .navbar-toggle {
   color: #fff;
-  padding-left: 15px;
+  padding: 0 0 0 15px;
+  border: 0;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
 }
 
 .navbar-menu {
@@ -39,12 +43,22 @@
   padding: 15px;
 }
 
-.navbar-menuitem a {
+.navbar-menuitem a,
+.navbar-link {
   color: #c0bbb7;
   text-decoration: none;
   cursor: pointer;
 }
 
-.navbar-menuitem a:hover {
+/* "Sair" é um <button>: zera o visual padrão para ficar igual aos links */
+.navbar-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+}
+
+.navbar-menuitem a:hover,
+.navbar-link:hover {
   color: #fff;
 }

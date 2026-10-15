@@ -1,0 +1,49 @@
+<div class="container page page-narrow">
+
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="save()">
+
+    <h1 class="title">{{ editing ? 'Edição de' : 'Novo' }} Exercício</h1>
+
+    <div class="field">
+      <label class="field-label" for="exercise-statement">Enunciado</label>
+      <textarea id="exercise-statement" class="native-input" rows="4" name="statement"
+        [(ngModel)]="form.statement" #statement="ngModel" required maxlength="255"></textarea>
+      <app-message [control]="statement" error="required" text="Informe o enunciado"></app-message>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="exercise-operation">Operação (opcional)</label>
+      <input pInputText id="exercise-operation" type="text" name="operation"
+        [(ngModel)]="form.operation" maxlength="150">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="exercise-answer">Resposta correta</label>
+      <input pInputText id="exercise-answer" type="number" step="any" name="correctAnswer"
+        [(ngModel)]="form.correctAnswer" #correctAnswer="ngModel" required>
+      <app-message [control]="correctAnswer" error="required" text="Informe a resposta correta"></app-message>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="exercise-category">Categoria</label>
+      <select id="exercise-category" class="native-input" name="categoryId"
+        [(ngModel)]="form.categoryId" #category="ngModel" required>
+        <option [ngValue]="null" disabled>Selecione uma categoria</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.categoryName }}</option>
+      </select>
+      <app-message [control]="category" error="required" text="Selecione a categoria"></app-message>
+    </div>
+
+    <div class="field-check">
+      <input id="exercise-active" type="checkbox" name="active" [(ngModel)]="form.active">
+      <label for="exercise-active">Exercício ativo (aparece para os alunos resolverem)</label>
+    </div>
+
+    <div class="form-actions">
+      <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
+      <a routerLink="/exercises">Voltar para a lista</a>
+    </div>
+
+  </form>
+
+</div>
